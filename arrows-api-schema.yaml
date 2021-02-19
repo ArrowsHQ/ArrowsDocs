@@ -1,0 +1,326 @@
+components:
+  schemas:
+    Account:
+      properties:
+        object:
+          readOnly: true
+          enum: ["account"]
+          type: string
+        id:
+          readOnly: true
+          format: uuid
+          type: string
+        name:
+          type: string
+          example: "Example Co."
+        website:
+          type: string
+          example: https://example.com
+        plans:
+          readOnly: true
+          type: array
+          items:
+            type: string
+            format: uuid
+      required:
+        - name
+      type: object
+    Plan:
+      properties:
+        object:
+          readOnly: true
+          enum: ["plan"]
+          type: string
+        id:
+          readOnly: true
+          format: uuid
+          type: string
+        name:
+          readOnly: true
+          type: string
+          example: "Example Co. Onboarding"
+        description:
+          readOnly: true
+          type: string
+          example: "This onboarding will help Example Co. get up and running."
+        url:
+          readOnly: true
+          type: string
+          example: "https://app.arrows.to/plans/00000000"
+        template:
+          format: uuid
+          type: string
+        account:
+          format: uuid
+          type: string
+        point_person:
+          readOnly: true
+          format: uuid
+          type: string
+        manager:
+          format: uuid
+          type: string
+      required:
+        - account
+        - manager
+        - template
+      type: object
+    Template:
+      properties:
+        object:
+          readOnly: true
+          enum: ["template"]
+          type: string
+        id:
+          readOnly: true
+          format: uuid
+          type: string
+        name:
+          type: string
+          example: "SMB Template"
+      type: object
+    Manager:
+      properties:
+        object:
+          readOnly: true
+          enum: ["user"]
+          type: string
+        id:
+          readOnly: true
+          format: uuid
+          type: string
+        email:
+          type: string
+          example: "johnny@acme.com"
+        name:
+          type: string
+          example: "Johnny Appleseed"
+      type: object
+    Event:
+      properties:
+        object:
+          readOnly: true
+          enum: ["event"]
+          type: string
+        id:
+          readOnly: true
+          format: uuid
+          type: string
+        created_at:
+          readOnly: true
+          format: date-time
+          example: 1613765307
+        type:
+          enum: ["task.done", "phase.done"]
+        data:
+          type: object
+          properties:
+            object:
+              oneOf:
+                - $ref: '#/components/schemas/Task'
+                - $ref: '#/components/schemas/Phase'
+      type: object
+    Task:
+      properties:
+        object:
+          readOnly: true
+          enum: ["task"]
+          type: string
+        id:
+          readOnly: true
+          format: uuid
+          type: string
+        name:
+          format: string
+          example: "Schedule onboarding call"
+        description:
+          format: string
+          example: "This call is where we'll kick things off."
+        status:
+          enum: ["todo", "doing", "done"]
+        template_object_id:
+          type: string
+          format: uuid
+        plan:
+          type: string
+          format: uuid
+        account:
+          type: string
+          format: uuid
+      type: object
+    Phase:
+      properties:
+        object:
+          readOnly: true
+          enum: ["phase"]
+          type: string
+        id:
+          readOnly: true
+          format: uuid
+          type: string
+        name:
+          format: string
+          example: "Kickoff"
+        description:
+          format: string
+          example: "The first phase of getting onboarded."
+        plan:
+          type: string
+          format: uuid
+        account:
+          type: string
+          format: uuid
+      type: object
+info:
+  description: '
+    Welcome to the Arrows API!
+  '
+  title: Arrows
+  version: 0.1.0
+openapi: 3.0.2
+paths:
+  /v1/accounts/{id}:
+    get:
+      operationId: Retrieve Account
+      parameters:
+        - description: The UUID identifying this account.
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+      tags:
+        - Accounts
+  /v1/accounts:
+    post:
+      operationId: Create Account
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+      tags:
+        - Accounts
+  /v1/plans:
+    post:
+      operationId: Create Plan
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plan'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+      tags:
+        - Plans
+  /v1/templates:
+    get:
+      operationId: List Templates
+      parameters:
+        - name: name
+          description: "Filter by name of plan."
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  object:
+                    enum: ["list"]
+                    type: string
+                  url: 
+                    enum: ["/v1/templates"]
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Template'
+      tags:
+        - Templates
+  /v1/managers:
+    get:
+      operationId: List Managers
+      parameters:
+        - name: email
+          description: "Filter by manager email address."
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  object:
+                    enum: ["list"]
+                    type: string
+                  url: 
+                    enum: ["/v1/managers"]
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Manager'
+      tags:
+        - Managers
+  /v1/events:
+    get:
+      operationId: List Events
+      parameters:
+        - name: type
+          description: "Filter events by event type. For example, passing in 'task.done' will return all events of that type."
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  object:
+                    enum: ["list"]
+                    type: string
+                  url: 
+                    enum: ["/v1/events"]
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+      tags:
+        - Events
+
+tags:
+- name: Accounts
+  description: "The Account object represents the company/organization/unit that you're onboarding."
+- name: Plans
+  description: "Arrows Plans are the specific onboarding plans shared with customers."
+- name: Templates
+  description: "Arrows Templates are blueprints for Arrows Plans shared with customers."
+- name: Managers
+  description: "Arrows Managers are internal users who help customers get onboarded."
+- name: Events
+  description: "Events are a record of something happening on your organization's Arrows account."
