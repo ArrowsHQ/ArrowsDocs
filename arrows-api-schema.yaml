@@ -57,12 +57,12 @@ components:
           readOnly: true
           format: uuid
           type: string
-        manager:
+        coordinator:
           format: uuid
           type: string
       required:
         - customer
-        - manager
+        - coordinator
         - template
       type: object
     Template:
@@ -79,7 +79,7 @@ components:
           type: string
           example: "SMB Template"
       type: object
-    Manager:
+    Member:
       properties:
         object:
           readOnly: true
@@ -172,9 +172,40 @@ components:
           format: uuid
       type: object
 info:
-  description: '
-    Welcome to the Arrows API!
-  '
+  description: "# Introduction
+
+    Welcome to the Arrows API documentation! Our goal with this API is to make
+    Arrows as useful as possible by letting you access, integrate, and modify
+    your Arrows data.
+
+    The quickest and easiest way to interact with the API is via the official
+    Zapier integration which you can find
+    [here](https://zapier.com/developer/public-invite/123347/1e96fa087e866d14304202fe2d96be40/)
+
+    # Authentication
+
+    In order to access the Arrows API you'll have to pass in your API Key. You
+    can find your API Key at
+    [https://arrows.to/organization#api](http://app.arrows.to/organization#api).
+
+    Pass in your API key via an HTTP header with the following format:
+
+    ```
+
+    Authorization: Token 4rr0w54rr0w54rr0w54rr0w54rr0w54l
+
+    ```
+
+    Where `4rr0w54rr0w54rr0w54rr0w54rr0w54l` would be replaced with your API key.
+
+    For example, a cURL request to retrieve your templates would look like this:
+
+    ```
+
+    curl -H \"Authorization: Token 4rr0w54rr0w54rr0w54rr0w54rr0w54l\" https://api.arrows.to/v1/templates
+
+    ```
+  "
   title: Arrows
   version: 0.1.0
 openapi: 3.0.2
@@ -258,12 +289,12 @@ paths:
                       $ref: '#/components/schemas/Template'
       tags:
         - Templates
-  /v1/managers:
+  /v1/members:
     get:
-      operationId: List Managers
+      operationId: List Team Members
       parameters:
         - name: email
-          description: "Filter by manager email address."
+          description: "Filter by member email address."
           in: query
           schema:
             type: string
@@ -277,14 +308,14 @@ paths:
                     enum: ["list"]
                     type: string
                   url: 
-                    enum: ["/v1/managers"]
+                    enum: ["/v1/members"]
                     type: string
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Manager'
+                      $ref: '#/components/schemas/Member'
       tags:
-        - Managers
+        - Members
   /v1/events:
     get:
       operationId: List Events
@@ -315,12 +346,31 @@ paths:
 
 tags:
 - name: Customers
-  description: "The Customer object represents the company/organization/unit that you're onboarding."
+  description: "The Customer object represents the customers that you're onboarding."
 - name: Plans
-  description: "Arrows Plans are the specific onboarding plans shared with customers."
+  description: "
+    Arrows Plans are the onboarding plans shared with customers. You'll need
+    three IDs to create a plan: a template ID, customer ID, and coordinator ID.
+    The coordinator ID should be the ID of a team member that can be retrieved
+    from the [Members](/v1/docs#tag/Members) endpoint.
+  "
 - name: Templates
-  description: "Arrows Templates are blueprints for Arrows Plans shared with customers."
-- name: Managers
-  description: "Arrows Managers are internal users who help customers get onboarded."
+  description: "
+    Arrows Templates are blueprints for Arrows Plans. When creating a plan,
+    you'll need a ID of the template you'd like to use.
+  "
+- name: Members
+  description: "
+    Arrows Members are the folks on your team helping customers get onboarded.
+  "
 - name: Events
-  description: "Events are a record of something happening on your organization's Arrows account."
+  description: "
+    Events are a record of something happening on your organization's Arrows
+    account. There are currently two types of Events:
+    \n\n
+    `task.done` - Created when a task on a plan is marked as complete.
+    \n\n
+    `phase.done` - Created when all of the tasks in a phase are marked complete.
+    \n\n
+    You can filter by event type by passing in the event type as a query param.
+  "
