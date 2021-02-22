@@ -186,7 +186,7 @@ info:
 
     In order to access the Arrows API you'll have to pass in your API Key. You
     can find your API Key at
-    [https://arrows.to/organization#api](http://app.arrows.to/organization#api).
+    [https://app.arrows.to/organization#api](http://app.arrows.to/organization#api).
 
     Pass in your API key via an HTTP header with the following format:
 
