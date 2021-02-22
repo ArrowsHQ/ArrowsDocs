@@ -1,10 +1,10 @@
 components:
   schemas:
-    Account:
+    Customer:
       properties:
         object:
           readOnly: true
-          enum: ["account"]
+          enum: ["customer"]
           type: string
         id:
           readOnly: true
@@ -50,7 +50,7 @@ components:
         template:
           format: uuid
           type: string
-        account:
+        customer:
           format: uuid
           type: string
         point_person:
@@ -61,7 +61,7 @@ components:
           format: uuid
           type: string
       required:
-        - account
+        - customer
         - manager
         - template
       type: object
@@ -144,7 +144,7 @@ components:
         plan:
           type: string
           format: uuid
-        account:
+        customer:
           type: string
           format: uuid
       type: object
@@ -167,7 +167,7 @@ components:
         plan:
           type: string
           format: uuid
-        account:
+        customer:
           type: string
           format: uuid
       type: object
@@ -179,11 +179,11 @@ info:
   version: 0.1.0
 openapi: 3.0.2
 paths:
-  /v1/accounts/{id}:
+  /v1/customers/{id}:
     get:
-      operationId: Retrieve Account
+      operationId: Retrieve Customer
       parameters:
-        - description: The UUID identifying this account.
+        - description: The UUID identifying this customer.
           in: path
           name: id
           required: true
@@ -194,26 +194,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Account'
+                $ref: '#/components/schemas/Customer'
       tags:
-        - Accounts
-  /v1/accounts:
+        - Customers
+  /v1/customers:
     post:
-      operationId: Create Account
+      operationId: Create Customer
       parameters: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Account'
+              $ref: '#/components/schemas/Customer'
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Account'
+                $ref: '#/components/schemas/Customer'
       tags:
-        - Accounts
+        - Customers
   /v1/plans:
     post:
       operationId: Create Plan
@@ -314,8 +314,8 @@ paths:
         - Events
 
 tags:
-- name: Accounts
-  description: "The Account object represents the company/organization/unit that you're onboarding."
+- name: Customers
+  description: "The Customer object represents the company/organization/unit that you're onboarding."
 - name: Plans
   description: "Arrows Plans are the specific onboarding plans shared with customers."
 - name: Templates
