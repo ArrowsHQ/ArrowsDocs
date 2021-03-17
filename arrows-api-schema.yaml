@@ -65,6 +65,40 @@ components:
         - coordinator
         - template
       type: object
+    PlanMembership:
+      properties:
+        object:
+          readOnly: true
+          enum: ["plan_membership"]
+          type: string
+        id:
+          readOnly: true
+          format: uuid
+          type: string
+        plan:
+          format: uuid
+          type: string
+        user:
+          format: uuid
+          type: string
+        role:
+          enum: 
+            - participant
+            - point_person
+            - coordinator
+          type: string
+          default: participant
+        notifications:
+          enum: 
+            - ignoring
+            - available
+            - watching
+            - everything
+          type: string
+          default: available
+      required:
+        - plan
+        - user
     Template:
       properties:
         object:
@@ -262,6 +296,23 @@ paths:
                 $ref: '#/components/schemas/Plan'
       tags:
         - Plans
+  /v1/plans/{id}/memberships:
+    post:
+      operationId: Create PlanMembership
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanMembership'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanMembership'
+      tags:
+        - PlanMemberships
   /v1/templates:
     get:
       operationId: List Templates
@@ -353,6 +404,11 @@ tags:
     three IDs to create a plan: a template ID, customer ID, and coordinator ID.
     The coordinator ID should be the ID of a team member that can be retrieved
     from the [Members](/v1/docs#tag/Members) endpoint.
+  "
+- name: PlanMemberships
+  description: "
+    PlanMemberships represent a user's participation in a plan. You'll need
+    two IDs to create a PlanMembership: a plan ID, and a user ID.
   "
 - name: Templates
   description: "
