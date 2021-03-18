@@ -79,7 +79,14 @@ components:
           format: uuid
           type: string
         user:
+          readOnly: true
           format: uuid
+          type: string
+        email:
+          writeOnly: true
+          type: string
+        name:
+          writeOnly: true
           type: string
         role:
           enum: 
@@ -88,17 +95,17 @@ components:
             - coordinator
           type: string
           default: participant
-        notifications:
+        notifications_tier:
           enum: 
             - ignoring
             - available
             - watching
             - everything
           type: string
-          default: available
+          default: watching
       required:
         - plan
-        - user
+        - email
     Template:
       properties:
         object:
@@ -407,8 +414,10 @@ tags:
   "
 - name: PlanMemberships
   description: "
-    PlanMemberships represent a user's participation in a plan. You'll need
-    two IDs to create a PlanMembership: a plan ID, and a user ID.
+    PlanMemberships represent a user's participation in a plan. Calling this
+    endpoint is equivalent to inviting someone to a Plan in the Arrows UI.
+    Creating a membership via the API will not send them an invite email,
+    unlike adding someone via the UI.
   "
 - name: Templates
   description: "
