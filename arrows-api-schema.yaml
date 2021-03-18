@@ -304,6 +304,49 @@ paths:
                 $ref: '#/components/schemas/Plan'
       tags:
         - Plans
+    get:
+      operationId: List Plans
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  object:
+                    enum: ["list"]
+                    type: string
+                  url: 
+                    enum: ["/v1/plans"]
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Plan'
+      tags:
+      - Plans
+  /v1/plans/{id}:
+    get:
+      operationId: Retrieve Plan
+      parameters:
+        - description: The UUID identifying the plan.
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+      tags:
+        - Plans
   /v1/plans/{plan_id}/memberships:
     post:
       operationId: Create PlanMembership
