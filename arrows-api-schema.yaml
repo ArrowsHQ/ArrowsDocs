@@ -76,6 +76,7 @@ components:
           format: uuid
           type: string
         plan:
+          readOnly: true
           format: uuid
           type: string
         user:
@@ -303,10 +304,16 @@ paths:
                 $ref: '#/components/schemas/Plan'
       tags:
         - Plans
-  /v1/plans/{id}/memberships:
+  /v1/plans/{plan_id}/memberships:
     post:
       operationId: Create PlanMembership
-      parameters: []
+      parameters:
+        - description: The UUID of the plan the membership is for.
+          in: path
+          name: plan_id
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
