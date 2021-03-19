@@ -35,6 +35,11 @@ components:
           readOnly: true
           format: uuid
           type: string
+        created_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: "2021-03-19T16:28:12Z"
         name:
           readOnly: true
           type: string
