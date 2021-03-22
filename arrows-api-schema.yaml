@@ -155,8 +155,9 @@ components:
           type: string
         created_at:
           readOnly: true
+          type: string
           format: date-time
-          example: 1613765307
+          example: "2021-03-19T16:28:12Z"        
         type:
           enum: ["task.done", "phase.done"]
         data:
