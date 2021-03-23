@@ -70,11 +70,11 @@ components:
         - coordinator
         - template
       type: object
-    PlanMembership:
+    Participant:
       properties:
         object:
           readOnly: true
-          enum: ["plan_membership"]
+          enum: ["participant"]
           type: string
         id:
           readOnly: true
@@ -353,11 +353,20 @@ paths:
                 $ref: '#/components/schemas/Plan'
       tags:
         - Plans
-  /v1/plans/{plan_id}/memberships:
+  /v1/plans/{plan_id}/participants:
     post:
-      operationId: Create PlanMembership
+      description: "
+        Calling this endpoint is equivalent to inviting someone to a Plan in
+        the Arrows UI. Creating a participant via the API will not send them an
+        invite email, unlike adding someone via the UI.
+
+
+        This endpoint is also how you set a point person or coordinator on a
+        plan. Set these by passing in the appropriate `role` parameter.
+      "
+      operationId: Create Participant
       parameters:
-        - description: The UUID of the plan the membership is for.
+        - description: The UUID of the plan the participant is a part of.
           in: path
           name: plan_id
           required: true
@@ -367,15 +376,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PlanMembership'
+              $ref: '#/components/schemas/Participant'
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PlanMembership'
+                $ref: '#/components/schemas/Participant'
       tags:
-        - PlanMemberships
+        - Participants
   /v1/templates:
     get:
       operationId: List Templates
@@ -468,12 +477,9 @@ tags:
     The coordinator ID should be the ID of a team member that can be retrieved
     from the [Members](/v1/docs#tag/Members) endpoint.
   "
-- name: PlanMemberships
+- name: Participants
   description: "
-    PlanMemberships represent a user's participation in a plan. Calling this
-    endpoint is equivalent to inviting someone to a Plan in the Arrows UI.
-    Creating a membership via the API will not send them an invite email,
-    unlike adding someone via the UI.
+    Participants represent a user's participation in a plan. 
   "
 - name: Templates
   description: "
