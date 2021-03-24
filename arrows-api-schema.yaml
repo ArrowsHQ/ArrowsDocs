@@ -317,11 +317,16 @@ paths:
         - Plans
     get:
       operationId: List Plans
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
+      parameters:
+        - name: archived
+          description: "
+            Filter for archived plans. By default returns only non-archived
+            plans.
+          "
+          in: query
+          schema:
+            type: string
+            example: "true"
       responses:
         '200':
           content:
