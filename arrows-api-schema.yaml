@@ -262,7 +262,7 @@ info:
   title: Arrows API
   version: 0.1.0
   x-logo:
-    url: "https://github.com/ArrowsHQ/ArrowsDocs/blob/styling/arrows-logo.png?raw=true"
+    url: "https://raw.githubusercontent.com/ArrowsHQ/ArrowsDocs/main/arrows-logo.png"
     altText: Arrows logo
 openapi: 3.0.2
 paths:
