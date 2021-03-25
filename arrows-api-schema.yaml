@@ -245,17 +245,17 @@ info:
 
     ```
 
-    Authorization: Token 4rr0w54rr0w54rr0w54rr0w54rr0w54l
+    Authorization: Token 4rr0w54rr0w54rr0w54rr0w54rr0w54r
 
     ```
 
-    Where `4rr0w54rr0w54rr0w54rr0w54rr0w54l` would be replaced with your API key.
+    Where `4rr0w54rr0w54rr0w54rr0w54rr0w54r` would be replaced with your API key.
 
     For example, a cURL request to retrieve your templates would look like this:
 
     ```
 
-    curl -H \"Authorization: Token 4rr0w54rr0w54rr0w54rr0w54rr0w54l\" https://api.arrows.to/v1/templates
+    curl -H \"Authorization: Token 4rr0w54rr0w54rr0w54rr0w54rr0w54r\" https://api.arrows.to/v1/templates
 
     ```
   "
