@@ -260,7 +260,6 @@ info:
     ```
   "
   title: Arrows API
-  version: 0.1.0
   x-logo:
     url: "https://raw.githubusercontent.com/ArrowsHQ/ArrowsDocs/main/arrows-logo.png"
     altText: Arrows logo
