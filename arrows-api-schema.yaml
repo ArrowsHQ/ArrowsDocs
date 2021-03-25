@@ -109,8 +109,8 @@ components:
             - everything
           description: "
             Will default to the notifications tier default for the role
-            assigned. The default role is 'participant', so the default
-            notifications_tier is the default for that role—'watching'.
+            assigned. The default role is `participant`, so the default
+            `notifications_tier` is the default for that role: `watching`.
           "
           type: string
           default: watching
@@ -233,7 +233,7 @@ info:
 
     The quickest and easiest way to interact with the API is via the official
     Zapier integration which you can find
-    [here](https://zapier.com/developer/public-invite/123347/1e96fa087e866d14304202fe2d96be40/)
+    [here](https://zapier.com/developer/public-invite/123347/1e96fa087e866d14304202fe2d96be40/).
 
     # Authentication
 
@@ -245,22 +245,25 @@ info:
 
     ```
 
-    Authorization: Token 4rr0w54rr0w54rr0w54rr0w54rr0w54l
+    Authorization: Token 4rr0w54rr0w54rr0w54rr0w54rr0w54r
 
     ```
 
-    Where `4rr0w54rr0w54rr0w54rr0w54rr0w54l` would be replaced with your API key.
+    Where `4rr0w54rr0w54rr0w54rr0w54rr0w54r` would be replaced with your API key.
 
     For example, a cURL request to retrieve your templates would look like this:
 
     ```
 
-    curl -H \"Authorization: Token 4rr0w54rr0w54rr0w54rr0w54rr0w54l\" https://api.arrows.to/v1/templates
+    curl -H \"Authorization: Token 4rr0w54rr0w54rr0w54rr0w54rr0w54r\" https://api.arrows.to/v1/templates
 
     ```
   "
-  title: Arrows
+  title: Arrows API
   version: 0.1.0
+  x-logo:
+    url: "https://github.com/ArrowsHQ/ArrowsDocs/blob/styling/arrows-logo.png?raw=true"
+    altText: Arrows logo
 openapi: 3.0.2
 paths:
   /v1/customers/{id}:
