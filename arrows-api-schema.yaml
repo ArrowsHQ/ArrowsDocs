@@ -35,6 +35,11 @@ components:
           readOnly: true
           format: uuid
           type: string
+        created_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: "2021-03-19T16:28:12Z"
         name:
           readOnly: true
           type: string
@@ -65,6 +70,53 @@ components:
         - coordinator
         - template
       type: object
+    Participant:
+      properties:
+        object:
+          readOnly: true
+          enum: ["participant"]
+          type: string
+        id:
+          readOnly: true
+          format: uuid
+          type: string
+        plan:
+          readOnly: true
+          format: uuid
+          type: string
+        user:
+          readOnly: true
+          format: uuid
+          type: string
+        email:
+          writeOnly: true
+          type: string
+        name:
+          writeOnly: true
+          type: string
+        role:
+          enum: 
+            - participant
+            - point_person
+            - coordinator
+          type: string
+          default: participant
+        notifications_tier:
+          enum: 
+            - ignoring
+            - available
+            - watching
+            - everything
+          description: "
+            Will default to the notifications tier default for the role
+            assigned. The default role is 'participant', so the default
+            notifications_tier is the default for that role—'watching'.
+          "
+          type: string
+          default: watching
+      required:
+        - plan
+        - email
     Template:
       properties:
         object:
@@ -108,8 +160,9 @@ components:
           type: string
         created_at:
           readOnly: true
+          type: string
           format: date-time
-          example: 1613765307
+          example: "2021-03-19T16:28:12Z"        
         type:
           enum: ["task.done", "phase.done"]
         data:
@@ -262,6 +315,86 @@ paths:
                 $ref: '#/components/schemas/Plan'
       tags:
         - Plans
+    get:
+      operationId: List Plans
+      parameters:
+        - name: archived
+          description: "
+            Filter for archived plans. By default returns only non-archived
+            plans.
+          "
+          in: query
+          schema:
+            type: string
+            example: "true"
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  object:
+                    enum: ["list"]
+                    type: string
+                  url: 
+                    enum: ["/v1/plans"]
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Plan'
+      tags:
+      - Plans
+  /v1/plans/{id}:
+    get:
+      operationId: Retrieve Plan
+      parameters:
+        - description: The UUID identifying the plan.
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+      tags:
+        - Plans
+  /v1/plans/{plan_id}/participants:
+    post:
+      description: "
+        Calling this endpoint is equivalent to inviting someone to a Plan in
+        the Arrows UI. Creating a participant via the API will not send them an
+        invite email, unlike adding someone via the UI.
+
+
+        This endpoint is also how you set a point person or coordinator on a
+        plan. Set these by passing in the appropriate `role` parameter.
+      "
+      operationId: Create Participant
+      parameters:
+        - description: The UUID of the plan the participant is a part of.
+          in: path
+          name: plan_id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Participant'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Participant'
+      tags:
+        - Participants
   /v1/templates:
     get:
       operationId: List Templates
@@ -353,6 +486,10 @@ tags:
     three IDs to create a plan: a template ID, customer ID, and coordinator ID.
     The coordinator ID should be the ID of a team member that can be retrieved
     from the [Members](/v1/docs#tag/Members) endpoint.
+  "
+- name: Participants
+  description: "
+    Participants represent a user's participation in a plan. 
   "
 - name: Templates
   description: "
