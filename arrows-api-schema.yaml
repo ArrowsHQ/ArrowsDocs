@@ -261,6 +261,9 @@ info:
   "
   title: Arrows
   version: 0.1.0
+  x-logo:
+    url: "https://github.com/ArrowsHQ/ArrowsDocs/blob/styling/arrows-logo.png?raw=true"
+    altText: Arrows logo
 openapi: 3.0.2
 paths:
   /v1/customers/{id}:
