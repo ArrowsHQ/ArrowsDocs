@@ -109,8 +109,8 @@ components:
             - everything
           description: "
             Will default to the notifications tier default for the role
-            assigned. The default role is 'participant', so the default
-            notifications_tier is the default for that role—'watching'.
+            assigned. The default role is `participant`, so the default
+            `notifications_tier` is the default for that role: `watching`.
           "
           type: string
           default: watching
