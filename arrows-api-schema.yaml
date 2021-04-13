@@ -41,7 +41,6 @@ components:
           format: date-time
           example: "2021-03-19T16:28:12Z"
         name:
-          readOnly: true
           type: string
           example: "Example Co. Onboarding"
         description:
