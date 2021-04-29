@@ -16,6 +16,9 @@ components:
         website:
           type: string
           example: https://example.com
+        notes:
+          type: string
+          example: "Internal notes visible on the customer page."
         plans:
           readOnly: true
           type: array
