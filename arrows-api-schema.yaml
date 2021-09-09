@@ -260,6 +260,10 @@ info:
     curl -H \"Authorization: Token 4rr0w54rr0w54rr0w54rr0w54rr0w54r\" https://api.arrows.to/v1/templates
 
     ```
+
+    # List Endpoints
+
+    All list endpoints return the 100 most recently created objects. If you have more objects than this that you'd like to access, please contact benedict@arrows.to.
   "
   title: Arrows API
   x-logo:
