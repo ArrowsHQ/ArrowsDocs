@@ -97,14 +97,14 @@ components:
           writeOnly: true
           type: string
         role:
-          enum: 
+          enum:
             - participant
             - point_person
             - coordinator
           type: string
           default: participant
         notifications_tier:
-          enum: 
+          enum:
             - ignoring
             - available
             - watching
@@ -164,7 +164,7 @@ components:
           readOnly: true
           type: string
           format: date-time
-          example: "2021-03-19T16:28:12Z"        
+          example: "2021-03-19T16:28:12Z"
         type:
           enum: ["task.done", "phase.done"]
         data:
@@ -340,7 +340,7 @@ paths:
                   object:
                     enum: ["list"]
                     type: string
-                  url: 
+                  url:
                     enum: ["/v1/plans"]
                     type: string
                   data:
@@ -417,7 +417,7 @@ paths:
                   object:
                     enum: ["list"]
                     type: string
-                  url: 
+                  url:
                     enum: ["/v1/templates"]
                     type: string
                   data:
@@ -444,7 +444,7 @@ paths:
                   object:
                     enum: ["list"]
                     type: string
-                  url: 
+                  url:
                     enum: ["/v1/members"]
                     type: string
                   data:
@@ -471,7 +471,7 @@ paths:
                   object:
                     enum: ["list"]
                     type: string
-                  url: 
+                  url:
                     enum: ["/v1/events"]
                     type: string
                   data:
@@ -493,7 +493,7 @@ tags:
   "
 - name: Participants
   description: "
-    Participants represent a user's participation in a plan. 
+    Participants represent a user's participation in a plan.
   "
 - name: Templates
   description: "
