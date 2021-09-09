@@ -260,6 +260,10 @@ info:
     curl -H \"Authorization: Token 4rr0w54rr0w54rr0w54rr0w54rr0w54r\" https://api.arrows.to/v1/templates
 
     ```
+
+    # List Endpoints
+
+    All list endpoints return the 100 most recently created objects. If you have more objects than this that you'd like to access, please contact benedict@arrows.to.
   "
   title: Arrows API
   x-logo:
@@ -267,6 +271,44 @@ info:
     altText: Arrows logo
 openapi: 3.0.2
 paths:
+  /v1/customers:
+    post:
+      operationId: Create Customer
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+      tags:
+        - Customers
+    get:
+      operationId: List Customers
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  object:
+                    enum: ["list"]
+                    type: string
+                  url:
+                    enum: ["/v1/customers"]
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Customer'
+      tags:
+        - Customers
   /v1/customers/{id}:
     get:
       operationId: Retrieve Customer
@@ -277,23 +319,6 @@ paths:
           required: true
           schema:
             type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Customer'
-      tags:
-        - Customers
-  /v1/customers:
-    post:
-      operationId: Create Customer
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Customer'
       responses:
         '200':
           content:
