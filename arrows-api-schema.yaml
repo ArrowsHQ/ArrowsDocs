@@ -267,6 +267,23 @@ info:
     altText: Arrows logo
 openapi: 3.0.2
 paths:
+  /v1/customers:
+    post:
+      operationId: Create Customer
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+      tags:
+        - Customers
   /v1/customers/{id}:
     get:
       operationId: Retrieve Customer
@@ -277,23 +294,6 @@ paths:
           required: true
           schema:
             type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Customer'
-      tags:
-        - Customers
-  /v1/customers:
-    post:
-      operationId: Create Customer
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Customer'
       responses:
         '200':
           content:
