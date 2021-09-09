@@ -284,6 +284,27 @@ paths:
                 $ref: '#/components/schemas/Customer'
       tags:
         - Customers
+    get:
+      operationId: List Customers
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  object:
+                    enum: ["list"]
+                    type: string
+                  url:
+                    enum: ["/v1/customers"]
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Customer'
+      tags:
+        - Customers
   /v1/customers/{id}:
     get:
       operationId: Retrieve Customer
