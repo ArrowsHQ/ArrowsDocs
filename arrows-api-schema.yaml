@@ -67,6 +67,10 @@ components:
         coordinator:
           format: uuid
           type: string
+        target_date:
+          readOnly: true
+          format: date
+          example: "2021-09-12"
       required:
         - customer
         - coordinator
