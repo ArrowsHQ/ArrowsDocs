@@ -71,6 +71,11 @@ components:
           readOnly: true
           format: date
           example: "2021-09-12"
+        archived:
+          readOnly: true
+          type: boolean
+          example: false
+
       required:
         - customer
         - coordinator
