@@ -62,8 +62,8 @@ components:
           type: string
         point_person:
           readOnly: true
-          format: uuid
-          type: string
+          allOf:
+            - $ref: '#/components/schemas/Participant'
         coordinator:
           format: uuid
           type: string
@@ -97,8 +97,8 @@ components:
           type: string
         user:
           readOnly: true
-          format: uuid
-          type: string
+          allOf:
+            - $ref: '#/components/schemas/User'
         email:
           writeOnly: true
           type: string
@@ -142,7 +142,7 @@ components:
           type: string
           example: "SMB Template"
       type: object
-    Member:
+    User:
       properties:
         object:
           readOnly: true
@@ -484,7 +484,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Member'
+                      $ref: '#/components/schemas/User'
       tags:
         - Members
   /v1/events:
