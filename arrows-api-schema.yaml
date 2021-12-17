@@ -142,7 +142,7 @@ components:
           type: string
           example: "SMB Template"
       type: object
-    Member:
+    User:
       properties:
         object:
           readOnly: true
@@ -484,7 +484,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Member'
+                      $ref: '#/components/schemas/User'
       tags:
         - Members
   /v1/events:
