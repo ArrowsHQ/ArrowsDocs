@@ -62,8 +62,8 @@ components:
           type: string
         point_person:
           readOnly: true
-          format: uuid
-          type: string
+          allOf:
+            - $ref: '#/components/schemas/Participant'
         coordinator:
           format: uuid
           type: string
