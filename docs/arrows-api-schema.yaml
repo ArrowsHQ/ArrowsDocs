@@ -276,7 +276,7 @@ info:
   "
   title: Arrows API
   x-logo:
-    url: "https://raw.githubusercontent.com/ArrowsHQ/ArrowsDocs/main/arrows-logo.png"
+    url: "https://raw.githubusercontent.com/ArrowsHQ/ArrowsDocs/main/docs/arrows-logo.png"
     altText: Arrows logo
 openapi: 3.0.2
 paths:
